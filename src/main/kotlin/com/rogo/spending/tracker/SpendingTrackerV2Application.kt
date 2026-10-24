@@ -1,4 +1,4 @@
-package com.rogo.spending_tracker_v2
+package com.rogo.spending.tracker
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class SpendingTrackerV2Application
 
 fun main(args: Array<String>) {
-	runApplication<SpendingTrackerV2Application>(*args)
+    runApplication<SpendingTrackerV2Application>(*args)
 }

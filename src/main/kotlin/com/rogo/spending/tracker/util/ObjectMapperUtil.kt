@@ -1,4 +1,4 @@
-package com.rogo.spending_tracker_v2.util
+package com.rogo.spending.tracker.util
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule

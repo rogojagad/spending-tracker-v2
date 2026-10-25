@@ -15,7 +15,7 @@ data class Category(
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     val id: UUID? = null,
     val name: String,
-    val priority: Short,
+    val priority: Short?,
     val isActive: Boolean,
     val description: String,
     @CreationTimestamp val createdAt: Instant? = null,

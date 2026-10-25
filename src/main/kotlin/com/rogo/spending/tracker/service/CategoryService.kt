@@ -5,6 +5,8 @@ import com.rogo.spending.tracker.entity.CategoryRepository
 import org.springframework.stereotype.Service
 
 @Service
-class CategoryService(private val categoryRepository: CategoryRepository) {
+class CategoryService(
+    private val categoryRepository: CategoryRepository,
+) {
     fun getAll(): List<Category> = categoryRepository.findAll()
 }

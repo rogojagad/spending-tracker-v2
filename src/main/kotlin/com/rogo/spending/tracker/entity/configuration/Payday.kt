@@ -20,4 +20,24 @@ data class Payday(
 @Repository
 interface PaydayRepository : JpaRepository<Payday, String> {
     fun findFirstByPaydayDate(paydayDate: LocalDate): Payday?
+
+    fun findByPaydayDateBetweenOrderByPaydayDateAsc(
+        paydayDateAfter: LocalDate,
+        paydayDateBefore: LocalDate,
+    ): MutableList<Payday>
+
+    fun findFirstByPaydayDateLessThanOrderByPaydayDateDesc(paydayDate: LocalDate): Payday?
+}
+
+// Convenience Queries
+fun PaydayRepository.getPaydaysForRange(param: GetPaydaysDateRangeQueryParam): MutableList<Payday> =
+    findByPaydayDateBetweenOrderByPaydayDateAsc(param.after, param.before)
+
+// Query Params
+data class GetPaydaysDateRangeQueryParam(
+    val fromInclusive: LocalDate,
+    val toExclusive: LocalDate,
+) {
+    val after: LocalDate = fromInclusive.minusDays(1)
+    val before: LocalDate = toExclusive
 }

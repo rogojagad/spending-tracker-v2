@@ -2,6 +2,8 @@ package com.rogo.spending.tracker.entity
 
 import com.rogo.spending.tracker.entity.Limit.ApplicationPeriod
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
@@ -10,15 +12,16 @@ import org.hibernate.annotations.UuidGenerator
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.math.BigDecimal
+import java.util.UUID
 
 @Entity(name = "spending_limit_snapshot")
 data class LimitSnapshot(
     // OG Fields
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    val id: String? = null,
+    val id: UUID? = null,
     val name: String,
-    val value: BigDecimal,
+    val value: Int, // TODO: fix this to use BigDecimal, I used wrong type in DDL, should use `numeric` instead of `int4`
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = true)
     val category: Category,
@@ -26,10 +29,11 @@ data class LimitSnapshot(
     @JoinColumn(name = "source_id", nullable = true)
     val source: Source,
     val descriptionKeywords: List<String>,
+    @Enumerated(EnumType.STRING)
     val applicationPeriod: ApplicationPeriod,
     // Snapshot Fields
-    val usedValue: BigDecimal,
-    val usedPercentage: Double,
+    val usedValue: Int, // TODO: fix this to use BigDecimal, I used wrong type in DDL, should use `numeric` instead of `int4`
+    val usedPercentage: BigDecimal, // TODO: fix this to use Double (?), I used wrong type in DDL, should use `float` instead of `numeric`
 )
 
 @Repository

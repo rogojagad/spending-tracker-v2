@@ -11,12 +11,13 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.math.BigDecimal
 import java.time.Instant
+import java.util.UUID
 
 @Entity(name = "spending")
 data class Spending(
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    val id: String? = null,
+    val id: UUID? = null,
     val amount: BigDecimal,
     val description: String,
     @ManyToOne(fetch = FetchType.EAGER)

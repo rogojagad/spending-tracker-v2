@@ -6,15 +6,18 @@ import org.hibernate.annotations.UuidGenerator
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.time.LocalDate
+import java.util.UUID
 
 @Entity(name = "payday")
 data class Payday(
     @Id
     @UuidGenerator(style = UuidGenerator.Style.TIME)
-    val id: String? = null,
+    val id: UUID? = null,
     val note: String,
     val paydayDate: LocalDate,
 )
 
 @Repository
-interface PaydayRepository : JpaRepository<Payday, String>
+interface PaydayRepository : JpaRepository<Payday, String> {
+    fun findFirstByPaydayDate(paydayDate: LocalDate): Payday?
+}

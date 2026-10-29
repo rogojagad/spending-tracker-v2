@@ -38,6 +38,10 @@ data class GetPaydaysDateRangeQueryParam(
     val fromInclusive: LocalDate,
     val toExclusive: LocalDate,
 ) {
+    /**
+     * JPA queries only accepts exclusive range query, but semantically I like inclusive range query better
+     * Use this QP with custom accessor to bridge both worlds
+     */
     val after: LocalDate = fromInclusive.minusDays(1)
     val before: LocalDate = toExclusive
 }

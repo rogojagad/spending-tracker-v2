@@ -13,7 +13,7 @@ import java.time.LocalDate
 class LimitService(
     private val limitRepository: LimitRepository,
     private val paydayService: PaydayService,
-    private val applicationProperties: ApplicationProperties
+    private val applicationProperties: ApplicationProperties,
 ) {
     fun getAll(isDueOnly: Boolean = false): List<Limit?> {
         val limits = limitRepository.findAll()
@@ -23,12 +23,11 @@ class LimitService(
         }
     }
 
-    private fun Limit.isDue(): Boolean {
-        return when (this.applicationPeriod) {
+    private fun Limit.isDue(): Boolean =
+        when (this.applicationPeriod) {
             Limit.ApplicationPeriod.PAYDAY -> paydayService.checkIsTodayPayday()
             Limit.ApplicationPeriod.MONTHLY -> LocalDate.now().isEndOfMonth()
             Limit.ApplicationPeriod.DATE2DATE -> LocalDate.now().isTodayDateEquals(applicationProperties.creditCardSettlementDate)
             Limit.ApplicationPeriod.WEEKLY -> TODO()
         }
-    }
 }
